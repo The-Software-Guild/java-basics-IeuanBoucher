@@ -3,8 +3,10 @@ import java.util.Scanner;
 
 public class rockPaperScissors {
 
-   static int currentRound, ties, userChoice, computerChoice, playerWins, computerWins, rounds;
-   static Random random;
+   static int currentRound, ties, userChoice, computerChoice, playerWins, computerWins, maxRounds;
+   static Random random = new Random();
+   static Scanner scanner = new Scanner(System.in);
+
 
    public static void main(String[] args) {
       runGame();
@@ -17,18 +19,18 @@ public class rockPaperScissors {
       computerChoice = 0;
       playerWins = 0;
       computerWins = 0;
-      rounds = 0;
+      maxRounds = 0;
    }
 
    private static void runGame() {
       resetCounters();
 
       System.out.println("Enter number of rounds to play, minimum 1, maximum 10");
-      Scanner scanner = new Scanner(System.in);
+
       try {
-         rounds = scanner.nextInt();
-         if (rounds >= 1 && rounds <= 10) {
-            System.out.println("Commencing " + rounds + " of rock, paper, scissors.");
+         maxRounds = scanner.nextInt();
+         if (maxRounds >= 1 && maxRounds <= 10) {
+            System.out.println("Commencing " + maxRounds + " rounds of rock, paper, scissors.");
          } else {
             System.out.println("Input not in range, exiting program");
             return;
@@ -37,8 +39,44 @@ public class rockPaperScissors {
          System.out.println("Input not in range, exiting program");
       }
 
+      while (!(currentRound > maxRounds)) {
+         playRound();
+      }
+      printSummary();
+
+      System.out.println("Play again? Enter Y or N");
+
+      char input = 0;
+      boolean validInput = false;
+
+      do {
+         try {
+            input = scanner.nextLine().toLowerCase().charAt(0);
+            if (input == 'y' || input == 'n') {
+               validInput = true;
+            } else {
+               System.out.println("Invalid input, please try again.");
+            }
+         } catch (Exception e) {
+            System.out.println("Invalid input, please try again.");
+         }
+      } while (!validInput);
+
+      if (input == 'y') {
+         runGame();
+      } else {
+         System.out.println("Thanks for playing!");
+      }
+   }
+
+   private static void playRound() {
       currentRound++;
-      System.out.println("Enter your choice: enter 1 for rock, 2 for paper or 3 for scissors.");
+
+      if (currentRound > maxRounds) {
+         return;
+      }
+
+      System.out.println("Round " + currentRound + "\nEnter your choice: enter 1 for rock, 2 for paper or 3 for scissors.");
 
       boolean validInput = false;
       do {
@@ -57,6 +95,27 @@ public class rockPaperScissors {
       computerChoice = random.nextInt(3) + 1;
 
       int result = findWinner(userChoice, computerChoice);
+
+      switch (result) {
+         case (0):
+            System.out.println("Tie!");
+            ties++;
+            break;
+         case (1):
+            System.out.println("Player wins!");
+            playerWins++;
+            break;
+         case (2):
+            System.out.println("Computer wins!");
+            computerWins++;
+            break;
+      }
+   }
+
+   private static void printSummary() {
+      System.out.println("Tied rounds: " + ties);
+      System.out.println("Player wins: " + playerWins);
+      System.out.println("Computer wins: " + computerWins);
    }
 
    /**
