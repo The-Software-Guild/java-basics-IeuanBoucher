@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class dogGenetics {
+public class DogGenetics {
    private static String[] dogTypes = new String[]{"King Charles Spaniel", "Terrier", "Corgi", "German Shepherd", "Miniature Dachshund"};
 
    public static void main(String[] args) {

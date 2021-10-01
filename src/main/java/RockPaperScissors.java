@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class rockPaperScissors {
+public class RockPaperScissors {
 
    static int currentRound, ties, userChoice, computerChoice, playerWins, computerWins, maxRounds;
    static Random random = new Random();
