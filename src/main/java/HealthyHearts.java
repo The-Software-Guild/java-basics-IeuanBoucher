@@ -23,7 +23,8 @@ public class HealthyHearts {
       int heartRateUpperBound = (int) Math.ceil(0.85 * maxHeartRate);
       int heartRateLowerBound = (int) Math.ceil(0.50 * maxHeartRate);
 
-      System.out.println(MessageFormat.format("Your target HR zone is {0} - {1} beats  per minute", heartRateLowerBound, heartRateUpperBound));
+      String result = MessageFormat.format("Your target HR zone is {0} - {1} beats  per minute", heartRateLowerBound, heartRateUpperBound);
+      System.out.println(result);
 
    }
 }
